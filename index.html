@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Config Bot Discord</title>
+<style>
+body {
+  background:#0f0f0f;
+  color:white;
+  font-family:Arial;
+  padding:20px;
+}
+input, textarea, button {
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+}
+button {
+  background:#5865F2;
+  color:white;
+  border:none;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+<h2>Configuração do Bot Discord</h2>
+
+<label>Mensagem:</label>
+<textarea id="msg"></textarea>
+
+<label>ID do Canal:</label>
+<input id="canal" placeholder="ID do canal">
+
+<label>Bot ativo?</label>
+<select id="ativo">
+  <option value="true">Ativado</option>
+  <option value="false">Desativado</option>
+</select>
+
+<button onclick="salvar()">Gerar config.json</button>
+
+<script>
+function salvar(){
+  const ativo = document.getElementById("ativo").value;
+  const msg = document.getElementById("msg").value;
+  const canal = document.getElementById("canal").value;
+
+  const json =
+`{
+  "ativo": ${ativo},
+  "mensagem": "${msg}",
+  "canal_id": ${canal}
+}`;
+
+  const blob = new Blob([json], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "config.json";
+  a.click();
+}
+</script>
+
+<p>📌 Envie o config.json para o GitHub.</p>
+</body>
+</html>
